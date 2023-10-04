@@ -1,0 +1,11 @@
+python-slugify
+Flask-Markdown
+Flask-Caching
+Pygments
+requests
+PyYAML
+whoosh
+flask
+boto3
+pytz 
+bs4

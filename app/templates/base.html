@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="author" content="Jordi Prats">
+  <meta name="copyright" content="Copyright (c) Jordi Prats">
+
+  {% if post_metadata['summary'] %}
+  <meta name="description" content="{{ post_metadata['summary'][0] }}">
+  <meta property="og:description" content="{{ post_metadata['summary'][0] }}">
+  {% endif %}
+  {% if post_metadata['image'] %}
+  <meta property="og:image" content="{{ post_metadata['image'] }}">
+  {% endif %}
+  <meta property="og:title" content="{{ post_metadata['title'][0] }}">
+  <meta property="og:url" content="{{ page_url }}">
+  {% if post_html %}
+  <meta property="og:type" content="article">
+  {% endif %}
+
+  {% if post_metadata['robots'] %}
+  <meta name="Robots" content="{{ post_metadata['robots'] }}" />
+  {% else %}
+  <meta name="Robots" content="index,follow" />
+  {% endif %}
+
+  {% if categories %}
+  {% for category in categories %}
+  <meta property="article:section" content="{{ category }}"> 
+  {% endfor %}
+  {% endif %}
+
+  {% if tags %}
+  {% for tag in tags %}
+  <meta property="article:tag" content="{{ tag }}"> 
+  {% endfor %}
+  {% endif %}
+
+	<meta name="keywords" content="{{ post_metadata['keywords'][0] }}">  
+
+  <link rel="alternate" type="application/rss+xml" title="RSS Feed for pet2cattle.com" href="https://pet2cattle.com/feed.rss" />
+
+  {% if canonical_url %}
+  <link rel="canonical" href="{{ canonical_url }}" />
+  {% endif %}
+
+  {% if post_html %}
+  <title>{{ post_metadata['title'][0] }}</title>
+  {% else %}
+  <title>{{ post_metadata['title'][0] }}</title>
+  {% endif %}
+
+  <!-- Bootstrap core CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://static.pet2cattle.com/css/pet2cattle.min.css">
+
+  {% if archives %}
+  {% for title in archives.keys() %}
+    <link rel='archives' title='{{ title }}' href='{{ page_url }}{{ archives[title] }}/' />
+  {% endfor %}
+  {% endif %}
+
+</head>
+
+<body style="padding-top: 70px;">
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="/">From pet to cattle</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          {% for title, item in navigation.items() %}
+            {% if item['is_page'] %}
+              <li class="nav-item active">
+                {% if item['rel'] %}
+                <a rel="{{ item['rel'] }}" class="nav-link" href="{{ item['url'] }}">{{ title }}</a>
+                {% else %}
+                <a class="nav-link" href="{{ item['url'] }}">{{ title }}</a>
+                {% endif %}
+              </li>
+            {% else %}
+            <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">{{ title }}</a>
+              <div class="dropdown-menu">
+              {% for page in item['subpages'] %}
+                {% if page['rel'] %}
+                <a rel="{{ page['rel'] }}" class="dropdown-item" href="{{ page['url'] }}">{{ page['title'] }}</a>
+                {% else %}
+                <a class="dropdown-item" href="{{ page['url'] }}">{{ page['title'] }}</a>
+                {% endif %}
+              {% endfor %}
+            </div>
+            </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  {% block content %}
+  {% endblock %}
+
+  <!-- Footer -->
+  <footer class="py-2">
+    <div class="container">
+      <p class="m-0 text-center">&copy; pet2cattle - <a rel="nofollow" href="/legal">Terms of use</a> - <a rel="nofollow" href="/source-code">source code</a></p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>
