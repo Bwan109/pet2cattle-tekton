@@ -10,6 +10,7 @@ Test8
 Test9
 Test10
 Test11
+Test12
 Blogging platform built using **Flask**:
 * Data is stored on object storage (**S3**/**MinIO**)
 * Runs on **Kubernetes** (deployed using a [helm chart](https://github.com/jordiprats/helm-pet2cattle))
